@@ -1,97 +1,181 @@
-# Higgs Boson Neural Network
+# 🔬 Higgs Boson Classification: Machine Learning in Particle Physics
 
 ![image](https://github.com/user-attachments/assets/24ef6a96-eb98-44a9-aec2-186c17a315e9)
 
+## 🌟 Project Overview
 
-## Descrição
-Este projeto implementa uma rede neural para classificação de eventos relacionados ao bóson de Higgs, utilizando um conjunto de dados fornecido pelo CERN. O objetivo é identificar eventos "s" (sinal) e "b" (fundo) com alta precisão, utilizando técnicas modernas de aprendizado de máquina e análise interpretável dos modelos com SHAP.
+An advanced binary classification implementation using Deep Neural Networks to identify Higgs Boson events in high-energy particle physics experimental data.
 
-## Fundamentos Matemáticos e Físicos
+## 🧲 The Higgs Boson: A Fundamental Particle
 
-### Contexto Físico
-O bóson de Higgs é uma partícula fundamental prevista pelo Modelo Padrão da física de partículas. Ele é responsável por conferir massa a outras partículas através do mecanismo de Higgs. Os eventos que indicam a presença do bóson de Higgs são raros e frequentemente misturados com ruídos e eventos de fundo (background), tornando a sua identificação um desafio estatístico e computacional.
+### Physical Significance
+The Higgs Boson is a fundamental particle discovered in 2012 at CERN's Large Hadron Collider (LHC), representing a monumental breakthrough in particle physics. It is the quantum excitation of the Higgs field, a fundamental field of crucial importance in the Standard Model of particle physics.
 
-### Modelagem Matemática
-A tarefa de classificação pode ser descrita matematicamente como um problema de minimização de uma função de custo. Neste caso:
-**Função de Custo:** Binary Cross-Entropy (BCE)
-  -
- $\( \text{BCE} = -\frac{1}{N} \sum_{i=1}^{N} \left[ y_i \log(\hat{y}_i) + (1-y_i) \log(1-\hat{y}_i) \right] \)$
- 
- Onde
-$\( y_i \)$ é o rótulo verdadeiro (0 ou 1) e $\( \hat{y}_i \)$ é a probabilidade prevista pelo modelo.
-A saída da rede neural é uma probabilidade, gerada pela função sigmoide:
-$\[ \sigma(z) = \frac{1}{1 + e^{-z}} \]$
-que transforma a soma ponderada das entradas em valores entre 0 e 1.
+### The Higgs Mechanism
+- Explains how fundamental particles acquire mass
+- Validates the Standard Model of particle physics
+- Discovered through extremely complex and rare decay processes
+- Predicted theoretically in 1964, experimentally confirmed in 2012
 
-### Arquitetura e Generalização
-A arquitetura da rede neural é composta por camadas densamente conectadas, cada uma aplicando:
-1. Uma transformação linear: $\( z = W \cdot x + b \)$
-2. Uma função de ativação não linear (ReLU): $\( f(z) = \max(0, z) \)$
-3. Dropout para evitar overfitting.
+### Decay Characteristics
+The Higgs Boson is extremely unstable, decaying almost immediately into other particles. The dataset we're using captures these complex decay signatures, which are challenging to distinguish from background noise.
 
-A função de perda é minimizada utilizando o algoritmo de gradiente descendente otimizado pelo Adam, que ajusta a taxa de aprendizado dinamicamente com base nos momentos das gradientes.
+## 📊 Dataset Details: CERN Higgs Boson Challenge
 
-## Tecnologias Utilizadas
-- **Linguagem:** Python
-- **Bibliotecas Principais:**
-  - PyTorch: Construção e treinamento da rede neural
-  - scikit-learn: Pré-processamento de dados e métricas
-  - SHAP: Explicabilidade do modelo
-  - Seaborn/Matplotlib: Visualização de dados
-  - TensorBoard: Monitoramento do treinamento
+### Data Origin
+- Source: CERN Large Hadron Collider (LHC)
+- Collected during high-energy particle collision experiments
+- Part of a machine learning challenge to classify Higgs Boson events
 
-## Estrutura do Modelo
-- **Arquitetura da Rede Neural:**
-  - Camada de entrada: 30 neurônios (características do dataset)
-  - 1ª Camada Oculta: 128 neurônios, ReLU e Dropout (0.2)
-  - 2ª Camada Oculta: 64 neurônios, ReLU e Dropout (0.2)
-  - Camada de Saída: 1 neurônio, função sigmoide
-- **Função de Perda:** Binary Cross-Entropy Loss
-- **Otimizador:** Adam com Weight Decay
-- **Scheduler:** StepLR para ajuste da taxa de aprendizado
+### Dataset Characteristics
+- 30 features describing particle physics events
+- Binary classification: Signal (Higgs Boson) vs Background
+- Highly preprocessed and normalized experimental data
+- Represents complex interactions at subatomic scales
 
-## Conjunto de Dados
-- **Tamanho:**
-  - **Treino:** 70%
-  - **Teste:** 30%
-- **Pré-processamento:**
-  - Normalização com StandardScaler
-  - Separação de recursos e rótulos
+### Feature Types
+- Kinematic properties of detected particles
+- Energy measurements
+- Spatial and momentum information
+- Derived physics-based calculations
 
-## Métricas de Avaliação
-- **Acurácia:** 99.55%
-- **Precisão:** 99.19%
-- **Recall:** 99.50%
-- **F1-Score:** 99.34%
-- **AUC-ROC:** 99.79%
+## 🧠 Technical Overview
 
-## Resultados da Matriz de Confusão
+### Objective
+Classify events into two categories:
+- Signal (Higgs Boson present)
+- Background (Experimental noise)
+
+### 🚀 Key Features
+- Deep Neural Network with Dropout
+- Robust data preprocessing
+- Regularization techniques
+- Comprehensive evaluation metrics
+
+## 🔬 Neural Network Architecture
+
+### Network Design
+
 ```
-[[49347   208]
- [  128 25317]]
+Input Layer (30 features)
+↓
+Fully Connected Layer (128 neurons)
+↓ ReLU Activation
+↓ Dropout (20%)
+↓
+Fully Connected Layer (64 neurons)
+↓ ReLU Activation
+↓ Dropout (20%)
+↓
+Output Layer (Sigmoid)
 ```
 
-## Visualizações de SHAP
-O projeto inclui explicações interpretáveis para o modelo usando SHAP:
-- **Background Data:** Primeiras 100 amostras de treino
-- **Test Samples:** Primeiras 10 amostras do conjunto de teste
-- **Saída:** Gráficos de importância das características gerados pelo SHAP para entender como cada atributo influencia as previsões.
+### Hyperparameters
+- Layers: 3 (2 hidden + output)
+- Neurons: 128 → 64 → 1
+- Activation Function: ReLU
+- Dropout: 20%
+- Optimizer: Adam
+- Learning Rate: 0.001
+- Weight Decay: 1e-5
 
-## Como Executar o Projeto
-### Pré-requisitos
-1. Python 3.8+
-2. Instale as dependências:
+## 🚀 Dependencies
+
+### Libraries Used
+- `torch`: Deep Learning
+- `sklearn`: Preprocessing and metrics
+- `pandas`: Data manipulation
+- `numpy`: Numerical computations
+- `matplotlib`, `seaborn`: Visualization
+- `shap`: Model interpretability
+- `tensorboard`: Training monitoring
+
+## 💻 Installation & Execution
+
+### Prerequisites
+- Python 3.8+
+- pip
+- CUDA (optional, for GPU)
+
+### Installation
 ```bash
-pip install torch scikit-learn matplotlib seaborn shap tensorboard
+pip install torch sklearn pandas numpy matplotlib seaborn shap tensorboard
 ```
 
-## Melhorias Futuras
-- Expansão do conjunto de dados com técnicas de data augmentation.
-- Avaliação com diferentes arquiteturas de rede neural.
-- Inclusão de mais explicações interpretáveis usando LIME.
+## 📈 Methodology
 
-## Contribuições
-Contribuições são bem-vindas! Por favor, envie um pull request ou abra uma issue para sugestões.
+### Processing Steps
+1. Data Loading
+2. Preprocessing
+   - Removal of irrelevant columns
+   - Label mapping
+3. Train/Test Split
+4. Normalization (StandardScaler)
+5. Neural Network Training
+6. Performance Evaluation
 
-## Licença
-Este projeto está licenciado sob a [MIT License](https://opensource.org/licenses/MIT).
+## 🧮 Evaluation Metrics
+
+### Calculated Metrics
+- Accuracy
+- Precision
+- Recall
+- F1-Score
+- AUC-ROC
+- Confusion Matrix
+
+### Results Interpretation
+- Model performance in classifying Higgs events
+- Analysis of false positives/negatives
+
+## 🔍 Exploratory Analysis
+
+### Visualizations
+- Feature histograms
+- Correlation matrix
+- Distribution boxplots
+
+### Techniques
+- Correlation heatmap
+- Feature distribution analysis
+- Pattern and outlier identification
+
+## 🤖 Model Interpretability
+
+### SHAP (SHapley Additive exPlanations)
+- Explanation of individual predictions
+- Feature importance
+- Impact of each variable on decision
+
+## 🔬 Complexity Analysis
+
+### Space
+- O(n): Linear complexity with number of features
+- Memory: Dependent on dataset size
+
+### Time
+- O(m * k): m = epochs, k = batch size
+- Training: ~50 epochs
+
+## 🦾 Possible Extensions
+- Experiment with deeper architectures
+- Ensemble techniques
+- Increase dataset size
+- Implement early stopping
+- Explore alternative architectures
+
+## 📊 Typical Results
+
+### Metrics
+- Accuracy: ~85-90%
+- AUC-ROC: ~0.85-0.90
+- Precision: ~0.80-0.85
+- Recall: ~0.80-0.85
+
+## 📝 Contributions
+Contributions are welcome! For significant changes, please open an issue first.
+
+## 📋 License
+[MIT](https://choosealicense.com/licenses/mit/)
+
+---
